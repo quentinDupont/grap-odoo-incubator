@@ -9,11 +9,17 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="view_account_journal_form" model="ir.ui.view">
         <field name="model">account.journal</field>
         <field name="inherit_id" ref="point_of_sale.view_account_journal_pos_user_form"/>
+
         <field name="arch" type="xml">
-            <field name="amount_authorized_diff" position="after">
-                <field name="pos_image" widget="image"/>
-            </field>
+            <xpath expr="//page[last()]" position="inside">
+                <group>
+                    <group name="pos_image_grp" attrs="{'invisible': [('journal_user', '!=', True)]}">
+                        <field name="pos_image" widget="image"/>
+                    </group>
+                </group>
+            </xpath>
         </field>
+
     </record>
 
 </odoo>

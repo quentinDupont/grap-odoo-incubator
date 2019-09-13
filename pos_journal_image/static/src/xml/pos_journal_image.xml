@@ -6,7 +6,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <templates id="template" xml:space="preserve">
 
-    <t t-extend="PaypadButtonWidget">
+ <!--    <t t-extend="PaypadButtonWidget">
         <t t-jquery="[t-esc='widget.cashregister.journal.name']" t-operation="before">
             <t t-if="widget.cashregister.journal.pos_image">
                 <div class="cashregister-img">
@@ -14,13 +14,14 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                 </div>
             </t>
         </t>
-    </t>
+    </t> -->
 
-    <t t-extend="Paymentline">
-        <t t-jquery="[class='paymentline-name']" t-operation="before">
+    <t t-extend="PaymentScreen-Paymentmethods">
+        <t t-jquery="[class='button paymentmethod']" t-operation="before">
             <div class="paymentline-img">
-                <img t-att-src="widget.journal_icon_url(line.cashregister.journal.id)"/>
-
+                <h2>aa</h2>
+                <!-- <img t-att-src="widget.journal_icon_url(cashregister.journal.id)"/> -->
+                <img t-att-src="widget.journal_icon_url('8')"/>
             </div>
         </t>
     </t>

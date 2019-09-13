@@ -19,9 +19,9 @@
     'qweb': [
         'static/src/xml/pos_journal_image.xml',
     ],
-    'demo': [
-        'demo/account_journal.xml',
-    ],
+    # 'demo': [
+    #     'demo/account_journal.xml',
+    # ],
     'images': [
         'static/description/account_journal_form.png',
         'static/description/pos_payment_list_image.png',
