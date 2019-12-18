@@ -54,7 +54,7 @@ class ProductProduct(models.Model):
     )
 
     pricetag_uom_id = fields.Many2one(
-        comodel_name="product.uom",
+        comodel_name="uom.uom",
         string="Pricetag UoM",
         domain="[('pricetag_available', '=', True)]",
         help="Set an alternative Unit of Mesure if you want to display"

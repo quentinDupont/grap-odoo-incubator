@@ -6,12 +6,12 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
 
-    <record id="sale_food.infusion_girl_power" model="product.product">
+    <record id="product.product_product_5" model="product.product">
         <field name="pricetag_uom_id" ref="uom_100_gr"/>
         <field name="pricetag_type_id" ref="type_local_product" />
     </record>
 
-    <record id="sale_food.biere_pilat_75cl" model="product.product">
+    <record id="product.product_product_6" model="product.product">
         <field name="pricetag_type_id" ref="type_local_product" />
     </record>
 

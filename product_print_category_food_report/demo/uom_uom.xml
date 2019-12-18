@@ -6,13 +6,13 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
 
-    <record id="product.product_uom_oz" model="product.uom">
+    <record id="uom.product_uom_oz" model="uom.uom">
         <field name="pricetag_available" eval="True"/>
     </record>
 
-    <record id="uom_100_gr" model="product.uom">
+    <record id="uom_100_gr" model="uom.uom">
         <field name="name">100 gr</field>
-        <field name="category_id" ref="product.product_uom_categ_kgm" />
+        <field name="category_id" ref="uom.product_uom_categ_kgm" />
         <field name="uom_type">smaller</field>
         <field name="factor">10</field>
         <field name="pricetag_available" eval="True"/>

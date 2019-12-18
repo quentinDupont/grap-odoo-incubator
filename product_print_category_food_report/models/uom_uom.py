@@ -6,7 +6,7 @@ from odoo import fields, models
 
 
 class ProductUom(models.Model):
-    _inherit = "product.uom"
+    _inherit = "uom.uom"
 
     pricetag_available = fields.Boolean(
         string="Available for Pricetag",

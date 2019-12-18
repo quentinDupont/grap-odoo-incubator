@@ -7,7 +7,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 <odoo>
 
     <menuitem id="menu_product_pricetag_type"
-        parent="base.menu_base_config" sequence="11"
+        parent="sale.prod_config_main" sequence="6"
         action="action_product_pricetag_type"/>
 
 </odoo>
