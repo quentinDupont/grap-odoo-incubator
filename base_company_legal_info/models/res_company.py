@@ -33,6 +33,4 @@ class ResCompany(models.Model):
             if not company.legal_type:
                 company.report_legal_description = name
             else:
-                company.report_legal_description = _(
-                    "{}, {}".format(name, company.legal_type)
-                )
+                company.report_legal_description = _(f"{name}, {company.legal_type}")
