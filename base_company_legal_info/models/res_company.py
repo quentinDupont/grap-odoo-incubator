@@ -25,7 +25,6 @@ class ResCompany(models.Model):
         compute="_compute_report_legal_description", store=True
     )
 
-    @api.multi
     @api.depends("name", "legal_name", "legal_type")
     def _compute_report_legal_description(self):
         for company in self:
