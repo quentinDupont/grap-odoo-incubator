@@ -12,6 +12,7 @@ class MobileKioskPurchase(models.TransientModel):
 
     @api.model
     def select_partner(self, partner_id):
+        print("============== select partner")
         """Create a purchase order, or select the last purchase order
         of a given partner"""
         result = self._prepare_result()
@@ -23,10 +24,12 @@ class MobileKioskPurchase(models.TransientModel):
 
     @api.model
     def select_product(self, partner_id, product_id):
+        print("============== select PRODUCT")
         result = self._prepare_result()
         ProductProduct = self.env["product.product"]
         product = ProductProduct.browse([product_id])[0]
         self._select_product(partner_id, product, result)
+        print("============== select PRODUCT ======= après _select_product")
         return result
 
     @api.model
@@ -168,7 +171,7 @@ class MobileKioskPurchase(models.TransientModel):
 
         # Get Supplierinfo
         supplierinfos = product.seller_ids.filtered(
-            lambda r: r.name.id == partner_id
+            lambda r: r.partner_id.id == partner_id
             and (not r.product_id or r.product_id.id == product.id)
         ).sorted(key=lambda r: r.min_qty)
         self._prepare_supplierinfo_data(

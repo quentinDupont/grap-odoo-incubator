@@ -19,20 +19,14 @@
         "product_supplierinfo_qty_multiplier",
     ],
     "data": [
+        'security/ir.model.access.csv',
         "data/mobile_kiosk_application.xml",
     ],
-    "qweb": [
-        "static/src/xml/mobile_kiosk_purchase.xml",
-    ],
     "assets": {
-       "web.assets_backend": [
-            "/mobile_kiosk_purchase/static/src/js/purchase_action.js",
-            "/mobile_kiosk_purchase/static/src/js/set_supplier.js",
-            "/mobile_kiosk_purchase/static/src/js/set_product.js",
-            "/mobile_kiosk_purchase/static/src/js/set_quantity.js",
-            "/mobile_kiosk_purchase/static/src/js/kanban_view_handler.js"
-        ]
+        'web.assets_backend': [
+            'mobile_kiosk_purchase/static/src/**/*',
+            'mobile_kiosk_purchase/static/src/xml/**/*',
+        ],
     },
     "installable": True,
 }
-

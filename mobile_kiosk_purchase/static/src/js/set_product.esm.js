@@ -1,7 +1,71 @@
+/** @odoo-module **/
 // Copyright (C) 2020-Today GRAP (http://www.grap.coop)
 // @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 // License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import { registry } from "@web/core/registry";
+import { _t } from "web.core";
+import { useService } from "@web/core/utils/hooks";
+import { ActionMobileKioskPurchase } from "@mobile_kiosk_purchase/js/purchase_action.esm";
+
+export class ActionSetProduct extends ActionMobileKioskPurchase {
+
+    // Indiquer que le scanner de code-barres est requis
+    _kiosk_barcode_scanner_required = true;
+
+    // Liste des événements à surveiller
+    events = {
+        "click .button_list_products": this._onListProducts.bind(this),
+    };
+
+    // Méthode appelée lors du clic sur le bouton "List Products"
+    _onListProducts() {
+        this.trigger('do-action', "mobile_kiosk_abstract.action_product_product_kanban", {
+            additional_context: {
+                kiosk_action: "mobile_kiosk_purchase_select_product",
+                kiosk_next_tag: "mobile_kiosk_purchase_action_set_quantity",
+                kiosk_error_tag: "mobile_kiosk_purchase_action_set_product",
+                kiosk_context: this.kiosk_context,
+                kiosk_extra_fields: {
+                    product_name: "name",
+                    product_id: "id",
+                },
+            },
+        });
+    }
+
+    // Méthode appelée lors du scan d'un code-barres
+    async _onBarcodeScanned(barcode) {
+        super._onBarcodeScanned(barcode);
+
+        try {
+            const result = await this.orm.call('mobile.kiosk.purchase', 'scan_barcode', [this.kiosk_context.partner_id, barcode]);
+            this.kiosk_notify_result(result);
+
+            if (result.status === "ok") {
+                this.kiosk_update_context_from_result(this.kiosk_context, result);
+
+                // Aller à la page de quantité
+                this.trigger('do-action', {
+                    type: 'ir.actions.client',
+                    name: _t('Confirm'),
+                    tag: "mobile_kiosk_purchase_action_set_quantity",
+                    kiosk_context: this.kiosk_context,
+                });
+            }
+
+        } catch (error) {
+            this.kiosk_warn_connexion();
+        } finally {
+            this._toggleBarcode(true);
+        }
+    }
+}
+
+ActionSetProduct.template = "mobile_kiosk_purchase.ActionSetProduct"
+registry.category("actions").add("mobile_kiosk_purchase_action_set_product", ActionSetProduct);
+
+/*
 odoo.define("mobile_kiosk_purchase.set_product", function (require) {
     "use strict";
 
@@ -61,7 +125,7 @@ odoo.define("mobile_kiosk_purchase.set_product", function (require) {
                     }
                     self._toggleBarcode(true);
                 }, function () {
-                    self.kiosk_warn_connexion();
+                    self.kiosk_warn_connexion(this);
                     self._toggleBarcode(true);
                 });
 
@@ -76,3 +140,4 @@ odoo.define("mobile_kiosk_purchase.set_product", function (require) {
     return ActionSetProduct;
 
 });
+*/

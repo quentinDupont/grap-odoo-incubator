@@ -1,8 +1,52 @@
+/** @odoo-module **/
+
 // Copyright (C) 2020-Today GRAP (http://www.grap.coop)
 // @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 // License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-odoo.define("mobile_kiosk_purchase.set_supplier", function (require) {
+import { registry } from "@web/core/registry";
+import { _t } from "web.core";
+import { ActionMobileKioskPurchase } from "@mobile_kiosk_purchase/js/purchase_action.esm";
+
+export class ActionSetSupplier extends ActionMobileKioskPurchase {
+    
+    // Liste des événements à surveiller
+    events = {
+        "click .button_skip_partner": this._onSkipPartner.bind(this),
+        "click .button_list_partners": this._onListPartners.bind(this),
+    };
+
+    // Méthode appelée lors du clic sur le bouton "Skip Partner"
+    _onSkipPartner() {
+        this.trigger('do-action', {
+            type: 'ir.actions.client',
+            name: _t('Select Product'),
+            tag: "mobile_kiosk_purchase_action_set_product",
+            kiosk_context: this.kiosk_context,
+        });
+    }
+
+    // Méthode appelée lors du clic sur le bouton "List Partners"
+    _onListPartners() {
+        this.trigger('do-action', "mobile_kiosk_abstract.action_res_partner_kanban", {
+            additional_context: {
+                kiosk_action: "mobile_kiosk_purchase_select_supplier",
+                kiosk_next_tag: "mobile_kiosk_purchase_action_set_product",
+                kiosk_context: this.kiosk_context,
+                kiosk_extra_fields: {
+                    partner_name: "display_name",
+                    partner_id: "id",
+                },
+            },
+        });
+    }
+}
+
+ActionSetSupplier.template = "mobile_kiosk_purchase.ActionSetSupplier";
+registry.category("actions").add("mobile_kiosk_purchase_action_set_supplier", ActionSetSupplier);
+
+
+/*odoo.define("mobile_kiosk_purchase.set_supplier", function (require) {
     "use strict";
 
     var ActionMobileKioskPurchase = require("mobile_kiosk_purchase.purchase_action");
@@ -46,3 +90,4 @@ odoo.define("mobile_kiosk_purchase.set_supplier", function (require) {
     return ActionSetSupplier;
 
 });
+*/

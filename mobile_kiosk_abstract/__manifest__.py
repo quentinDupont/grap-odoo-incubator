@@ -23,21 +23,18 @@
         "views/view_res_partner.xml",
         "views/view_mobile_kiosk_application.xml",
     ],
-    "qweb": [
-        "static/src/xml/mobile_kiosk_abstract.xml",
-    ],
     "demo": [
         "demo/res_partner.xml",
         "demo/product_product.xml",
         # "demo/product_supplierinfo.xml",
     ],
     "assets": {
-       "web.assets_backend": [
-            "/mobile_kiosk_abstract/static/src/js/widget.js",
-            "/mobile_kiosk_abstract/static/src/js/abstract_action.js",
-            "/mobile_kiosk_abstract/static/src/js/pad_widget.js",
-            "/mobile_kiosk_abstract/static/src/js/kanban_view_handler.js",
-            "/mobile_kiosk_abstract/static/src/scss/mobile_kiosk_abstract.scss"
+        'web.assets_backend': [
+            'mobile_kiosk_abstract/static/src/**/*',
+            'mobile_kiosk_abstract/static/src/xml/**/*',
+        ],
+        "web.assets_qweb": [
+            "mobile_kiosk_abstract/static/src/xml/mobile_kiosk_abstract.xml",
         ]
     },
     "installable": True,
