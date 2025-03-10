@@ -14,7 +14,6 @@ class StockInventoryLine(models.Model):
             StockInventoryLine, self.with_context(do_not_check_duplicates=True)
         ).create(vals)
 
-    @api.multi
     def write(self, vals):
         return super(
             StockInventoryLine, self.with_context(do_not_check_duplicates=True)

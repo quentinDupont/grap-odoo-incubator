@@ -26,13 +26,11 @@ class StockInventory(models.Model):
     ]
 
     # Compute Section
-    @api.multi
     def _compute_duplicates_qty(self):
         for inventory in self:
             inventory.duplicates_qty = len(inventory._get_duplicated_line_ids())
 
     # Overload Section
-    @api.multi
     def action_validate(self):
         inventories = self.filtered(lambda x: x.duplicates_qty)
         if inventories:
@@ -46,7 +44,6 @@ class StockInventory(models.Model):
         return super(StockInventory, self).action_validate()
 
     # Action Section
-    @api.multi
     def action_view_duplicates(self):
         self.ensure_one()
         action = self.env.ref("stock_inventory_merge.action_view_duplicates_tree")
@@ -60,7 +57,6 @@ class StockInventory(models.Model):
         )
         return action_data
 
-    @api.multi
     def complete_with_zero(self):
         line_obj = self.env["stock.inventory.line"]
         for inventory in self:
@@ -81,7 +77,6 @@ class StockInventory(models.Model):
                     product_line["inventory_id"] = self.id
                     line_obj.create(product_line)
 
-    @api.multi
     def action_merge_duplicated_line(self):
         uom_obj = self.env["uom.uom"]
         line_obj = self.env["stock.inventory.line"]
@@ -118,7 +113,6 @@ class StockInventory(models.Model):
                 line_obj.browse(line_ids).unlink()
 
     # Custom Section
-    @api.multi
     def _get_duplicated_line_ids(self):
         self.ensure_one()
         check_dict = {}
@@ -135,7 +129,6 @@ class StockInventory(models.Model):
                 duplicates_group_ids.append(v)
         return duplicates_group_ids
 
-    @api.multi
     def _get_inventory_line_vals(self):
         line_obj = self.env["stock.inventory.line"]
         return line_obj.search_read(

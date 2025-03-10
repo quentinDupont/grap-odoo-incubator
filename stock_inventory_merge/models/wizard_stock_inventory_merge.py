@@ -13,7 +13,6 @@ class WizardStockInventoryMerge(models.TransientModel):
 
     name = fields.Char(string="Inventory Name", required=True)
 
-    @api.multi
     def action_merge(self):
         self.ensure_one()
         inventory_obj = self.env["stock.inventory"]

@@ -30,7 +30,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="action_stock_inventory_merge" model="ir.actions.act_window">
       <field name="name">Merge Inventories</field>
       <field name="res_model">wizard.stock.inventory.merge</field>
-      <field name="view_type">form</field>
       <field name="view_mode">form</field>
       <field name="target">new</field>
       <field name="binding_model_id" ref="stock.model_stock_inventory"/>
