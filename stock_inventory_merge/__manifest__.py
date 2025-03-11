@@ -1,5 +1,6 @@
 # Copyright (C) 2016-Today GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# @author: Quentin DUPONT (quentin.dupont@grap.coop)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
@@ -12,15 +13,16 @@
     "license": "AGPL-3",
     "depends": ["stock"],
     "data": [
-        "views/view_stock_inventory_line.xml",
+        "security/ir.model.access.csv",
+        "views/view_stock_quant.xml",
         "views/view_stock_inventory.xml",
         "views/view_wizard_stock_inventory_merge.xml",
     ],
-    "demo": [
-        "demo/res_groups.xml",
-        "demo/product_product.xml",
-        "demo/stock_inventory.xml",
-    ],
+    # "demo": [
+    #     "demo/res_groups.xml",
+    #     "demo/product_product.xml",
+    #     "demo/stock_inventory.xml",
+    # ],
     "images": [
         "static/description/stock_inventory_disabled_warning.png",
         "static/description/stock_inventory_form_complete_zero.png",

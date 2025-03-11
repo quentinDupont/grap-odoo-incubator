@@ -11,7 +11,7 @@ class StockInventory(models.Model):
     _inherit = "stock.inventory"
     _order = "date desc"
 
-    filter = fields.Selection(default="partial")
+    # filter = fields.Selection(default="partial")
 
     duplicates_qty = fields.Integer(
         string="Duplicates Quantity", compute="_compute_duplicates_qty"
@@ -20,9 +20,9 @@ class StockInventory(models.Model):
     _INVENTORY_LINE_KEY_FIELDS = [
         "product_id",
         "location_id",
-        "partner_id",
+        "owner_id",
         "package_id",
-        "prod_lot_id",
+        "lot_id",
     ]
 
     # Compute Section
@@ -44,9 +44,9 @@ class StockInventory(models.Model):
         return super(StockInventory, self).action_validate()
 
     # Action Section
-    def action_view_duplicates(self):
+    def action_view_duplicates_quants_tree(self):
         self.ensure_one()
-        action = self.env.ref("stock_inventory_merge.action_view_duplicates_tree")
+        action = self.env.ref("stock_inventory_merge.action_view_duplicates_quants_tree")
         action_data = action.read()[0]
         duplicates_list = self._get_duplicated_line_ids()
         duplicate_ids = []
@@ -130,9 +130,9 @@ class StockInventory(models.Model):
         return duplicates_group_ids
 
     def _get_inventory_line_vals(self):
-        line_obj = self.env["stock.inventory.line"]
+        line_obj = self.env["stock.quant"]
         return line_obj.search_read(
-            [("inventory_id", "in", self.ids)], self._INVENTORY_LINE_KEY_FIELDS
+            [("current_inventory_id", "in", self.ids)], self._INVENTORY_LINE_KEY_FIELDS
         )
 
     @api.model

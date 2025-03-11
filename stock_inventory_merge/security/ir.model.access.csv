@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+stock_inventory_merge.access_wizard_stock_inventory_merge,access_wizard_stock_inventory_merge,stock_inventory_merge.model_wizard_stock_inventory_merge,base.group_user,1,0,0,0
