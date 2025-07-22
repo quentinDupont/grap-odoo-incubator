@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template xml:space="preserve">
 
-    <t t-name="MobileAppPurchaseSetSupplier" t-extend="MobileAppAbstract.GenericWidget">
+    <t t-name="mobile_kiosk_purchase.MobileAppPurchaseSetSupplier" t-extend="MobileAppAbstract.GenericWidget" owl="1">
         <t t-jquery=".place-holder" t-operation="append">
             <div class="row o_mobile_kiosk_abstract_row">
                 <div class="col-sm-5">
-                    <button class="button_list_partners btn btn-primary mb16">
+                    <button t-on-click="_onListPartners" class="btn btn-primary mb16">
                         <div class="mb16 mt16">Select Supplier</div>
                     </button>
                 </div>
@@ -13,7 +13,7 @@
                     <h3 class="mt0 mb8"><i>or</i></h3>
                 </div>
                 <div class="col-sm-5">
-                    <button class="button_skip_partner btn btn-primary mb16">
+                    <button t-on-click="_onSkipPartner" class="btn btn-primary mb16">
                         <div class="mb16 mt16">Buy for any supplier</div>
                     </button>
                 </div>
@@ -21,7 +21,7 @@
         </t>
     </t>
 
-    <t t-name="MobileAppPurchaseSetProduct" t-extend="MobileAppAbstract.GenericWidget">
+    <t t-name="mobile_kiosk_purchase.MobileAppPurchaseSetProduct" t-extend="MobileAppAbstract.GenericWidget" owl="1">
         <t t-jquery=".place-holder" t-operation="append">
             <div class="row o_mobile_kiosk_abstract_row">
                 <div class="col-sm-12">
@@ -47,7 +47,7 @@
         </t>
     </t>
 
-    <t t-name="MobileAppPurchaseSetQuantity" t-extend="MobileAppAbstract.GenericWidget">
+    <t t-name="mobile_kiosk_purchase.MobileAppPurchaseSetQuantity" t-extend="MobileAppAbstract.GenericWidget" owl="1">
         <t t-jquery=".place-holder" t-operation="append">
             <div class="row o_mobile_kiosk_abstract_row">
                 <div class="col-sm-12">

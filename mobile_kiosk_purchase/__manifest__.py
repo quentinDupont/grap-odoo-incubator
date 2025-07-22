@@ -24,6 +24,7 @@
     ],
     "assets": {
         'web.assets_backend': [
+            'mobile_kiosk_purchase/static/src/xml/mobile_kiosk_purchase.xml',
             'mobile_kiosk_purchase/static/src/**/*',
             'mobile_kiosk_purchase/static/src/xml/**/*',
         ],

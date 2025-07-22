@@ -14,8 +14,8 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="arch" type="xml">
             <xpath expr="//kanban" position="attributes">
                 <attribute name="class">mobile_kiosk_mode</attribute>
-<!--                 <attribute name="type">object"</attribute>
-                <attribute name="action">action_partner_kiosk_confirm"</attribute> -->
+                <attribute name="type">object"</attribute>
+                <attribute name="action">action_partner_kiosk_confirm"</attribute>
             </xpath>
         </field>
     </record>
@@ -23,7 +23,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="action_res_partner_kanban" model="ir.actions.act_window">
         <field name="name">Partners</field>
         <field name="res_model">res.partner</field>
-        <field name="view_mode">kanban</field>
+        <field name="view_mode">form</field>
         <field name="view_id" ref="view_res_partner_kanban"/>
         <field name="target">main</field>
     </record>

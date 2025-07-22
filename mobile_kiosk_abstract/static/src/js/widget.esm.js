@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { _t } from "web.core";
+/*import { _t } from "web.core";
 import { useService } from "@web/core/utils/hooks";
 
 
@@ -25,7 +25,7 @@ export function kiosk_warn_connexion() {
             type: "danger",
             message: _t("Please check your Internet Connection, then try again"),
         }
-    );*/
+    );
 }
 
 export function kiosk_notify_result(result) {
@@ -39,27 +39,17 @@ export function kiosk_notify_result(result) {
         }
     });
 }
+*/
 
 
-/*
 import { patch } from "@web/core/utils/patch";
 import { Component } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 
 patch(Component.prototype, "mobile_kiosk_abstract.widget", {
 
-    // Mise à jour du contexte avec les résultats
-    kiosk_update_context_from_result(context, result) {
-        Object.keys(result).forEach(function (key) {
-            if (key !== "status" && key !== "messages") {
-                context[key] = result[key];
-            }
-        });
-    },
-
-    // Affichage d'un avertissement en cas de perte de connexion
     kiosk_warn_connexion() {
-        const notification = useService("notification");
+        const notification = this.env.services.notification;
         notification.add(
             _t("Connexion lost"),
             {
@@ -69,24 +59,24 @@ patch(Component.prototype, "mobile_kiosk_abstract.widget", {
         );
     },
 
-    // Notification des résultats, que ce soit des erreurs ou des succès
     kiosk_notify_result(result) {
-        const notification = useService("notification");
+        const notification = this.env.services.notification;
         const messages = result.messages || [];
         
         messages.forEach(function (message) {
-            if (message.level === "error") {
-                notification.add(message.message, {
-                    type: "danger",
-                    title: message.title,
-                });
-            } else {
-                notification.add(message.message, {
-                    type: "success",
-                    title: message.title,
-                });
+            notification.add(message.message, {
+                type: message.level === "error" ? "danger" : "success",
+                title: message.title,
+            });
+        });
+    },
+
+    kiosk_update_context_from_result(context, result) {
+        Object.keys(result).forEach(function (key) {
+            if (key !== "status" && key !== "messages") {
+                context[key] = result[key];
             }
         });
     },
 
-});*/
+});

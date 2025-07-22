@@ -3,15 +3,27 @@
 import { patch } from "@web/core/utils/patch";
 import { KanbanRecord } from "@web/views/kanban/kanban_record";
 import { useService } from "@web/core/utils/hooks";
-
-// Import des fonctions utilitaires
-import { kiosk_notify_result, kiosk_update_context_from_result, kiosk_warn_connexion } from "./widget.esm";
+import { registry } from "@web/core/registry";
 
 patch(KanbanRecord.prototype, "mobile_kiosk_abstract.kanban_view_handler", {
 
     setup() {
         this._super(...arguments);
         this.actionService = useService("action");
+
+        /* new registry*/
+/*        const mobileKioskRegistry = registry.category("mobile_kiosk");
+        const sharedContext = mobileKioskRegistry.get("shared_context") || {};*/
+
+/*        this.kiosk_context = sharedContext.kiosk_context || {};
+        this.kiosk_extra_fields = sharedContext.kiosk_extra_fields || {};
+        this.kiosk_next_tag = sharedContext.kiosk_next_tag;
+
+        console.log("🔍 Contexte récupéré depuis registry :", {
+            context: this.kiosk_context,
+            fields: this.kiosk_extra_fields,
+            next: this.kiosk_next_tag,
+        });*/
     },
 
     // Overload this function to create a custom hook
@@ -26,31 +38,33 @@ patch(KanbanRecord.prototype, "mobile_kiosk_abstract.kanban_view_handler", {
             const context = this.props.record.context;
             const kiosk_context = context.kiosk_context || {};
             const fields = context.kiosk_extra_fields || {};
-            // Populate the kiosk_context with extra fields
-            Object.keys(fields).forEach((key) => {
-                kiosk_context[key] = this.props.record.data[fields[key]];
-            });
 
             try {
                 console.log("=============== ABSTRACT == dans onGlobalClick du purchase avant le recordHook");
                 let result = await this._mobileOpenRecordHook();
                 console.log("=============== ABSTRACT == dans onGlobalClick du purchase APRES le recordHook");
 
-                /*kiosk_notify_result(result);*/
+                this.kiosk_notify_result(result);
 
-                if (result.status === "ok") {
-                    kiosk_update_context_from_result(kiosk_context, result);
+                if (result.status === "ok") {   
+                    console.log("=============== ABSTRACT == Result OK");
+                    this.kiosk_update_context_from_result(kiosk_context, result);
+                    console.log("TAG:", context.kiosk_next_tag);
+
+                    // ✅ Passage complet de tous les éléments nécessaires à l'action suivante
                     this.actionService.doAction({
                         type: "ir.actions.client",
                         name: "Confirm",
                         tag: context.kiosk_next_tag,
+                        // Props passés au prochain composant OWL
                         kiosk_context: kiosk_context,
+                        kiosk_extra_fields: context.kiosk_extra_fields,
+                        kiosk_next_tag: context.kiosk_next_tag,
                     });
-
                 }
             } catch (error) {
                 console.log("============== ERREUR DANS onGlobalClick ABSTRATC")
-                /*kiosk_warn_connexion();*/
+                this.kiosk_warn_connexion();
             }
 
         } else {

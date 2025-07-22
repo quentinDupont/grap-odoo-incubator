@@ -1,23 +1,20 @@
 /** @odoo-module **/
 
-// Copyright (C) 2020-Today GRAP (http://www.grap.coop)
-// @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-// License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import { registry } from "@web/core/registry";
 import { _t } from "web.core";
 import { ActionMobileKioskPurchase } from "@mobile_kiosk_purchase/js/purchase_action.esm";
+import { ResPartnerMenu } from "@mobile_kiosk_abstract/js/res_partner_menu.esm";
+import { useService } from "@web/core/utils/hooks";
 
 export class ActionSetSupplier extends ActionMobileKioskPurchase {
-    
-    // Liste des événements à surveiller
-    events = {
-        "click .button_skip_partner": this._onSkipPartner.bind(this),
-        "click .button_list_partners": this._onListPartners.bind(this),
-    };
+
+    setup() {
+        this.actionService = useService("action");
+    }
 
     // Méthode appelée lors du clic sur le bouton "Skip Partner"
-    _onSkipPartner() {
+/*    _onSkipPartner() {
         this.trigger('do-action', {
             type: 'ir.actions.client',
             name: _t('Select Product'),
@@ -25,14 +22,14 @@ export class ActionSetSupplier extends ActionMobileKioskPurchase {
             kiosk_context: this.kiosk_context,
         });
     }
-
-    // Méthode appelée lors du clic sur le bouton "List Partners"
+*/
     _onListPartners() {
-        this.trigger('do-action', "mobile_kiosk_abstract.action_res_partner_kanban", {
-            additional_context: {
-                kiosk_action: "mobile_kiosk_purchase_select_supplier",
-                kiosk_next_tag: "mobile_kiosk_purchase_action_set_product",
+        this.actionService.doAction("mobile_kiosk_abstract.action_res_partner_kanban", {
+            type: "ir.actions.client",
+            tag: "mobile_kiosk_purchase_action_set_supplier",
+            additional_context:{
                 kiosk_context: this.kiosk_context,
+                kiosk_next_tag: "mobile_kiosk_purchase_action_set_product",
                 kiosk_extra_fields: {
                     partner_name: "display_name",
                     partner_id: "id",
@@ -42,52 +39,21 @@ export class ActionSetSupplier extends ActionMobileKioskPurchase {
     }
 }
 
-ActionSetSupplier.template = "mobile_kiosk_purchase.ActionSetSupplier";
-registry.category("actions").add("mobile_kiosk_purchase_action_set_supplier", ActionSetSupplier);
+ActionSetSupplier.template = "mobile_kiosk_purchase.MobileAppPurchaseSetSupplier";
 
-
-/*odoo.define("mobile_kiosk_purchase.set_supplier", function (require) {
-    "use strict";
-
-    var ActionMobileKioskPurchase = require("mobile_kiosk_purchase.purchase_action");
-    var core = require("web.core");
-
-    var ActionSetSupplier = ActionMobileKioskPurchase.extend({
-        template: "MobileAppPurchaseSetSupplier",
-
-        events: {
-            "click .button_skip_partner": function () {
-                // Go to the product page
-                this.do_action({
-                    type: 'ir.actions.client',
-                    name: 'Select Product',
-                    tag: "mobile_kiosk_purchase_action_set_product",
-                    kiosk_context: this.kiosk_context,
-                });
-            },
-            "click .button_list_partners": function () {
-                this.do_action("mobile_kiosk_abstract.action_res_partner_kanban", {
-                    additional_context: {
-                        "kiosk_action": "mobile_kiosk_purchase_select_supplier",
-                        "kiosk_next_tag": "mobile_kiosk_purchase_action_set_product",
-                        "kiosk_context": this.kiosk_context,
-                        "kiosk_extra_fields": {
-                            "partner_name": "display_name",
-                            "partner_id": "id",
-                        },
-                    },
-                });
-            },
+registry.category("actions").add("mobile_kiosk_purchase_action_set_supplier", (env, action) => {
+    return {
+        type: "ir.actions.act_window",
+        res_model: "res.partner",
+        view_mode: "kanban",
+        views: [[false, "kanban"]],
+        context: {
+            ...action.context,
         },
-
-    });
-
-    core.action_registry.add(
-        "mobile_kiosk_purchase_action_set_supplier",
-        ActionSetSupplier,
-    );
-
-    return ActionSetSupplier;
-
+    };
 });
-*/
+
+
+// Copyright (C) 2020-Today GRAP (http://www.grap.coop)
+// @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+// License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).

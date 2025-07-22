@@ -33,9 +33,6 @@
             'mobile_kiosk_abstract/static/src/**/*',
             'mobile_kiosk_abstract/static/src/xml/**/*',
         ],
-        "web.assets_qweb": [
-            "mobile_kiosk_abstract/static/src/xml/mobile_kiosk_abstract.xml",
-        ]
     },
     "installable": True,
 }
