@@ -11,7 +11,7 @@ patch(KanbanRecord.prototype, "mobile_kiosk_abstract.kanban_view_handler", {
         this._super(...arguments);
         this.actionService = useService("action");
 
-        /* new registry*/
+        /* New registry*/
 /*        const mobileKioskRegistry = registry.category("mobile_kiosk");
         const sharedContext = mobileKioskRegistry.get("shared_context") || {};*/
 
@@ -41,12 +41,12 @@ patch(KanbanRecord.prototype, "mobile_kiosk_abstract.kanban_view_handler", {
 
             try {
                 console.log("=============== ABSTRACT == dans onGlobalClick du purchase avant le recordHook");
-                let result = await this._mobileOpenRecordHook();
+                const result = await this._mobileOpenRecordHook();
                 console.log("=============== ABSTRACT == dans onGlobalClick du purchase APRES le recordHook");
 
                 this.kiosk_notify_result(result);
 
-                if (result.status === "ok") {   
+                if (result.status === "ok") {
                     console.log("=============== ABSTRACT == Result OK");
                     this.kiosk_update_context_from_result(kiosk_context, result);
                     console.log("TAG:", context.kiosk_next_tag);

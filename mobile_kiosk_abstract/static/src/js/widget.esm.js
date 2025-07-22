@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-/*import { _t } from "web.core";
+/* import { _t } from "web.core";
 import { useService } from "@web/core/utils/hooks";
 
 
@@ -62,7 +62,7 @@ patch(Component.prototype, "mobile_kiosk_abstract.widget", {
     kiosk_notify_result(result) {
         const notification = this.env.services.notification;
         const messages = result.messages || [];
-        
+
         messages.forEach(function (message) {
             notification.add(message.message, {
                 type: message.level === "error" ? "danger" : "success",

@@ -29,9 +29,9 @@
         # "demo/product_supplierinfo.xml",
     ],
     "assets": {
-        'web.assets_backend': [
-            'mobile_kiosk_abstract/static/src/**/*',
-            'mobile_kiosk_abstract/static/src/xml/**/*',
+        "web.assets_backend": [
+            "mobile_kiosk_abstract/static/src/**/*",
+            "mobile_kiosk_abstract/static/src/xml/**/*",
         ],
     },
     "installable": True,

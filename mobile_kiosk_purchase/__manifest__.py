@@ -19,14 +19,14 @@
         "product_supplierinfo_qty_multiplier",
     ],
     "data": [
-        'security/ir.model.access.csv',
+        "security/ir.model.access.csv",
         "data/mobile_kiosk_application.xml",
     ],
     "assets": {
-        'web.assets_backend': [
-            'mobile_kiosk_purchase/static/src/xml/mobile_kiosk_purchase.xml',
-            'mobile_kiosk_purchase/static/src/**/*',
-            'mobile_kiosk_purchase/static/src/xml/**/*',
+        "web.assets_backend": [
+            "mobile_kiosk_purchase/static/src/xml/mobile_kiosk_purchase.xml",
+            "mobile_kiosk_purchase/static/src/**/*",
+            "mobile_kiosk_purchase/static/src/xml/**/*",
         ],
     },
     "installable": True,
