@@ -52,6 +52,9 @@ class TestStockPickingAccountMove(TransactionCase):
                 "type": "product",
                 "uom_id": self.env.ref("uom.product_uom_unit").id,
                 "uom_po_id": self.env.ref("uom.product_uom_unit").id,
+                "property_account_expense_id": self.env.ref(
+                    "l10n_generic_coa.1_expense"
+                ),
             }
         )
 
