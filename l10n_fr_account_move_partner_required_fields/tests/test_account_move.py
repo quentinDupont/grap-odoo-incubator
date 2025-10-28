@@ -9,7 +9,7 @@ class TestAccountMovePartnerFields(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         # Copy an existing demo invoice
-        cls.move_1 = cls.env.ref("account.2_demo_invoice_1").copy()
+        cls.move_1 = cls.env.ref("account.1_demo_invoice_1").copy()
 
     def test_action_post_partner_required_fields(self):
         partner = self.move_1.partner_id
@@ -43,6 +43,7 @@ class TestAccountMovePartnerFields(TransactionCase):
                 "zip": "75010",
                 "city": "PARIS",
                 "siren": "828130799",
+                "nic": "00020",
             }
         )
 
